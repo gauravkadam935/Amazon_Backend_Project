@@ -18,7 +18,7 @@ app.use("/api/v1/album", albumRoutes);
 app.use("/api/v1/song", songRoutes);
 
 const connectDB = async () => {
-  await mongoose.connect(process.env.MONGO_URl);
+  await mongoose.connect(process.env.MONGO_URI);
 };
 connectDB()
   .then(() => {

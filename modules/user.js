@@ -4,19 +4,19 @@ const { default: mongoose } = require("mongoose");
 const userSchema = {
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   mobileNo: {
     type: String,
-    require: true,
+    required: true,
   },
   address: {
     type: String,

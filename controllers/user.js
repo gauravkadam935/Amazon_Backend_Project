@@ -13,13 +13,10 @@ const registerUser = async (req, res) => {
   const plainTextPassword = req.body.password;
 
   const salt = await bcrypt.genSalt(10);
-  console.log("salt", salt);
 
   const passwordHash = await bcrypt.hash(plainTextPassword, salt);
 
   userDetails.password = passwordHash;
-
-  console.log("PASS HASH", passwordHash);
 
   const newUser = new User(userDetails);
   await newUser.save();
@@ -29,9 +26,8 @@ const registerUser = async (req, res) => {
 const userLogin = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(password);
+
   const user = await User.findOne({ email: email });
-  console.log(user);
 
   if (!user) {
     return res
@@ -40,7 +36,7 @@ const userLogin = async (req, res) => {
   }
   const hashPassword = await user.password;
   const isvalidPassword = await bcrypt.compare(password, hashPassword);
-  console.log(isvalidPassword);
+
   if (!isvalidPassword) {
     return res.status(404).json({ success: false, msg: "Incorrect Password" });
   }
@@ -62,7 +58,7 @@ const userLogout = async (req, res) => {
     return res.status(404).json({ status: "fail", msg: "Token not found" });
   } else {
     const decodedToken = jwt.decode(token);
-    console.log(decodedToken);
+
     await User.findByIdAndUpdate(decodedToken.id, { token: "" });
     return res.json({ status: true, msg: "logout sucessful" });
   }
